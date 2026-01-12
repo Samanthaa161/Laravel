@@ -1,27 +1,40 @@
-<h1>{{$title}}</h1>
+@extends('layouts.master')
 
-@if(empty($films))
-    <FONT COLOR="red">No se ha encontrado ninguna película</FONT>
-@else
-    <div align="center">
-    <table border="1">
-        <tr>
-            @foreach($films as $film)
-                @foreach(array_keys($film) as $key)
-                    <th>{{$key}}</th>
+@section('content')
+<div class="container mt-4">
+    <h2 class="mb-4">Films list</h2>
+
+    <!-- Botones para ordenar -->
+    <div class="d-flex mb-3">
+        <a href="{{ route('films.old') }}" class="btn btn-outline-primary mr-2">
+            Oldest first
+        </a>
+        <a href="{{ route('films.new') }}" class="btn btn-outline-secondary">
+            Newest first
+        </a>
+    </div>
+
+    @if(count($films) > 0)
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($films as $film)
+                    <tr>
+                        <td>{{ $film['title'] }}</td>
+                        <td>{{ $film['year'] }}</td>
+                    </tr>
                 @endforeach
-                @break
-            @endforeach
-        </tr>
-
-        @foreach($films as $film)
-            <tr>
-                <td>{{$film['name']}}</td>
-                <td>{{$film['year']}}</td>
-                <td>{{$film['genre']}}</td>
-                <td><img src={{$film['img_url']}} style="width: 100px; heigth: 120px;" /></td>
-            </tr>
-        @endforeach
-    </table>
+            </tbody>
+        </table>
+    @else
+        <div class="alert alert-warning">
+            No films available.
+        </div>
+    @endif
 </div>
-@endif
+@endsection
