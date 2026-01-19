@@ -20,6 +20,9 @@
                     <tr>
                         <th>Title</th>
                         <th>Year</th>
+                        <th>Genre</th>
+                        <th>Country</th>
+                        <th>Duration (min)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +30,9 @@
                         <tr>
                             <td>{{ $film['title'] }}</td>
                             <td>{{ $film['year'] }}</td>
+                            <td>{{ $film['genre'] }}</td>
+                            <td>{{ $film['country'] }}</td>
+                            <td>{{ $film['duration'] }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -35,7 +41,7 @@
 
             <div class="row">
 
-                <!-- 🎭 Films by Genre -->
+                <!-- Films by Genre -->
                 <div class="col-md-6">
                     <h4 class="mb-3">Films by genre</h4>
 
@@ -65,7 +71,7 @@
                     </div>
                 </div>
 
-                <!-- 📅 Films by Year -->
+                <!-- Films by Year -->
                 <div class="col-md-6">
                     <h4 class="mb-3">Films by year</h4>
 
