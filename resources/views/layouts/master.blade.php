@@ -17,8 +17,8 @@
         <h1>Films App</h1>
         <nav>
             <a href="/" class="text-white">Welcome</a> |
-            <a href="/films/count" class="text-white">Count</a> |
-            <a href="{{ route('films.list') }}">List</a>
+            <a href="{{ route('films.count') }}" class="text-white">Count</a> |
+            <a href="{{ route('films.list') }}" class="text-white">List</a>
         </nav>
     </div>
 </header>
