@@ -43,16 +43,16 @@
 
                 <!-- Films by Genre -->
                 <div class="col-md-6">
-                    <h4 class="mb-3">Films by genre</h4>
+                    <h4 class="mb-3">Films by Year</h4>
 
                     <div class="accordion" id="genreAccordion">
-                        @foreach ($filmsByGenre as $genre => $group)
+                        @foreach ($filmsByYear as $year => $group)
                             <div class="card">
                                 <div class="card-header" id="headingGenre{{ $loop->index }}">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link" type="button" data-toggle="collapse"
                                             data-target="#collapseGenre{{ $loop->index }}">
-                                            {{ $genre }}
+                                            {{ $year }}
                                         </button>
                                     </h2>
                                 </div>

@@ -105,4 +105,28 @@ class FilmController extends Controller
 
         return view('films.list', compact('films', 'filmsByGenre', 'filmsByYear'));
     }
+
+     public function oldFilms()
+    {
+        $films = $this->films;
+        usort($films, fn($a, $b) => $a['year'] <=> $b['year']);
+
+        return view('films.list', compact('films'));
+    }
+
+    public function newFilms()
+    {
+        $films = $this->films;
+        usort($films, fn($a, $b) => $b['year'] <=> $a['year']);
+
+        return view('films.list', compact('films'));
+    }
+
+    public function countFilms()
+    {
+    $films = session()->get('films', $this->films);
+    $filmCount = count($films);
+
+    return view('films.count', compact('filmCount'));
+    }
 }
