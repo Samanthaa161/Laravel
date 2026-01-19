@@ -5,5 +5,8 @@
 @section('content')
     <h2>Total films</h2>
 
-    <p>Total number of films: <strong>{{ $filmCount }}</strong></p>
+    <p class="fs-4">
+        Total number of films:
+        <strong>{{ $filmCount }}</strong>
+    </p>
 @endsection

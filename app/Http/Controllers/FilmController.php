@@ -72,4 +72,12 @@ class FilmController extends Controller
 
         return view('films.list', compact('films'));
     }
+
+    public function countFilms()
+    {
+    $films = session()->get('films', $this->films);
+    $filmCount = count($films);
+
+    return view('films.count', compact('filmCount'));
+    }
 }
