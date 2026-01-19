@@ -1,35 +1,83 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request; 
+
+use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
     private array $films = [
-    ['title' => 'The Godfather', 'year' => 1972, 'genre' => 'Drama'],
-    ['title' => 'Pulp Fiction', 'year' => 1994, 'genre' => 'Crime'],
-    ['title' => 'Inception', 'year' => 2010, 'genre' => 'Sci-Fi'],
-    ['title' => 'Interstellar', 'year' => 2014, 'genre' => 'Sci-Fi'],
-    ['title' => 'Casablanca', 'year' => 1942, 'genre' => 'Romance'],
+        [
+            'title' => 'The Godfather',
+            'year' => 1972,
+            'genre' => 'Crime',
+            'country' => 'USA',
+            'duration' => 175,
+            'image' => ''
+        ],
+        [
+            'title' => 'Pulp Fiction',
+            'year' => 1994,
+            'genre' => 'Crime',
+            'country' => 'USA',
+            'duration' => 154,
+            'image' => ''
+        ],
+        [
+            'title' => 'Inception',
+            'year' => 2010,
+            'genre' => 'Sci-Fi',
+            'country' => 'USA',
+            'duration' => 148,
+            'image' => ''
+        ],
+        [
+            'title' => 'Interstellar',
+            'year' => 2014,
+            'genre' => 'Sci-Fi',
+            'country' => 'USA',
+            'duration' => 169,
+            'image' => ''
+        ],
+        [
+            'title' => 'Casablanca',
+            'year' => 1942,
+            'genre' => 'Romance',
+            'country' => 'USA',
+            'duration' => 102,
+            'image' => ''
+        ],
     ];
-
 
     public function createFilm(Request $request)
     {
-        $title = $request->input('title');
-        $year = $request->input('year');
+        // 1Validación completa
+        $request->validate([
+            'title'    => 'required|string',
+            'year'     => 'required|integer',
+            'genre'    => 'required|string',
+            'country'  => 'required|string',
+            'duration' => 'required|integer',
+            'image'    => 'required|url',
+        ]);
 
-        // Inicializar sesión si está vacía
+        // Cargar películas (JSON base + sesión)
         $films = session()->get('films', $this->films);
 
-        if ($this->isFilm($title, $films)) {
+        // Evitar duplicados
+        if ($this->isFilm($request->title, $films)) {
             return redirect('/')
                 ->with('error', 'Film already exists');
         }
 
+        // Añadir nueva película (NO borra las anteriores)
         $films[] = [
-            'title' => $title,
-            'year' => $year
+            'title'    => $request->title,
+            'year'     => $request->year,
+            'genre'    => $request->genre,
+            'country'  => $request->country,
+            'duration' => $request->duration,
+            'image'    => $request->image,
         ];
 
         session()->put('films', $films);
@@ -37,55 +85,24 @@ class FilmController extends Controller
         return redirect()->route('films.list');
     }
 
-
-    public function isFilm($title, $films)
+    private function isFilm(string $title, array $films): bool
     {
-    foreach ($films as $film) {
-        if (strtolower($film['title']) === strtolower($title)) {
-            return true;
+        foreach ($films as $film) {
+            if (strtolower($film['title']) === strtolower($title)) {
+                return true;
+            }
         }
-    }
-    return false;
+        return false;
     }
 
-
-   public function list()
+    public function list()
     {
-    $films = session()->get('films', $this->films);
-
-    // Agrupar por género
-    $filmsByGenre = collect($films)->groupBy('genre');
-
-    // Agrupar por año
-    $filmsByYear = collect($films)->groupBy('year');
-
-    return view('films.list', compact('films', 'filmsByGenre', 'filmsByYear'));
-    }
-
-
-   public function oldFilms()
-    {
-    $films = session()->get('films', $this->films);
-
-    usort($films, fn($a, $b) => $a['year'] <=> $b['year']);
-
-    return view('films.list', compact('films'));
-    }
-
-    public function newFilms()
-    {
+        // SIEMPRE devuelve todas
         $films = session()->get('films', $this->films);
 
-        usort($films, fn($a, $b) => $b['year'] <=> $a['year']);
+        $filmsByGenre = collect($films)->groupBy('genre');
+        $filmsByYear = collect($films)->groupBy('year');
 
-        return view('films.list', compact('films'));
-    }
-
-    public function countFilms()
-    {
-    $films = session()->get('films', $this->films);
-    $filmCount = count($films);
-
-    return view('films.count', compact('filmCount'));
+        return view('films.list', compact('films', 'filmsByGenre', 'filmsByYear'));
     }
 }
