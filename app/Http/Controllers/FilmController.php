@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 class FilmController extends Controller
 {
     private array $films = [
-        ['title' => 'The Godfather', 'year' => 1972],
-        ['title' => 'Pulp Fiction', 'year' => 1994],
-        ['title' => 'Inception', 'year' => 2010],
-        ['title' => 'Interstellar', 'year' => 2014],
-        ['title' => 'Casablanca', 'year' => 1942],
+    ['title' => 'The Godfather', 'year' => 1972, 'genre' => 'Drama'],
+    ['title' => 'Pulp Fiction', 'year' => 1994, 'genre' => 'Crime'],
+    ['title' => 'Inception', 'year' => 2010, 'genre' => 'Sci-Fi'],
+    ['title' => 'Interstellar', 'year' => 2014, 'genre' => 'Sci-Fi'],
+    ['title' => 'Casablanca', 'year' => 1942, 'genre' => 'Romance'],
     ];
+
 
     public function createFilm(Request $request)
     {
@@ -48,10 +49,17 @@ class FilmController extends Controller
     }
 
 
-    public function list()
-   {
+   public function list()
+    {
     $films = session()->get('films', $this->films);
-    return view('films.list', compact('films'));
+
+    // Agrupar por género
+    $filmsByGenre = collect($films)->groupBy('genre');
+
+    // Agrupar por año
+    $filmsByYear = collect($films)->groupBy('year');
+
+    return view('films.list', compact('films', 'filmsByGenre', 'filmsByYear'));
     }
 
 
