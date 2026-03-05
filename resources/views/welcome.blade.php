@@ -61,5 +61,7 @@
     <button type="submit" class="btn btn-primary mt-3">Add film</button>
 </form>
 ```
-
+<a href="{{ route('actors.list') }}" class="btn btn-secondary">
+    List actors
+</a>
 @endsection
