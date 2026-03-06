@@ -9,10 +9,18 @@ class ActorController extends Controller
 {
     public function listActors()
     {
-        // 1. Get all actors using Eloquent ORM
         $actors = Actor::all();
 
-        // 2. Return list view with actors data
+        return view('actors.list', compact('actors'));
+    }
+
+    public function listActorsByDecade($year)
+    {
+        $actors = Actor::whereBetween('birthdate', [
+            $year . '-01-01',
+            ($year + 9) . '-12-31'
+        ])->get();
+
         return view('actors.list', compact('actors'));
     }
 }
