@@ -40,6 +40,7 @@ Route::middleware('year')->group(function() {
         Route::get('/films/count', [FilmController::class, 'countFilms'])->name('filmscount');
     }); 
 });
+
 Route::group(['prefix' => 'actorout'], function () {
     Route::get('/actors', [ActorController::class, 'listActors'])
         ->name('actors.list');
@@ -47,4 +48,7 @@ Route::group(['prefix' => 'actorout'], function () {
     Route::get('/actors/decade/{year}', [ActorController::class, 'listActorsByDecade'])
         ->middleware('year')
         ->name('actors.decade');
+    
+    Route::get('/actors/count', [ActorController::class, 'countActors'])
+        ->name('actors.count');
 });
