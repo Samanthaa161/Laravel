@@ -4,17 +4,8 @@ use App\Http\Controllers\FilmController;
 use App\Http\Middleware\ValidateYear;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ValidateUrl;
+use App\Http\Controllers\ActorController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 Route::get('/films/list', [FilmController::class, 'list'])
     ->name('films.list');
 
@@ -47,7 +38,13 @@ Route::middleware('year')->group(function() {
         Route::get('films/{year?}/{genre?}',[FilmController::class, "listFilms"])->name('listFilms');
         Route::get('count',action:[FilmController::class, "countFilms"])->name(name:'countFilms');
         Route::get('/films/count', [FilmController::class, 'countFilms'])->name('filmscount');
-    });
+    }); 
 });
+Route::group(['prefix' => 'actorout'], function () {
+    Route::get('/actors', [ActorController::class, 'listActors'])
+        ->name('actors.list');
 
-
+    Route::get('/actors/decade/{year}', [ActorController::class, 'listActorsByDecade'])
+        ->middleware('year')
+        ->name('actors.decade');
+});
