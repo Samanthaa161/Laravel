@@ -68,6 +68,9 @@
     <a href="{{ route('actors.list') }}" class="btn btn-primary">
         List actors
     </a>
+    <a href="{{ route('actors.count') }}" class="btn btn-primary">
+        Count actors
+    </a>
 
     <br>
     <br>
