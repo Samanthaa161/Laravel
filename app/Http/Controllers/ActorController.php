@@ -31,5 +31,22 @@ class ActorController extends Controller
         return view('actors.count', compact('count'));
     }
 
+    public function destroy($id)
+    {
+        $actor = Actor::find($id);
 
+        if ($actor) {
+            $actor->delete();
+
+            return response()->json([
+                "action" => "delete",
+                "status" => true
+            ]);
+        }
+
+        return response()->json([
+            "action" => "delete",
+            "status" => false
+        ]);
+    }
 }
