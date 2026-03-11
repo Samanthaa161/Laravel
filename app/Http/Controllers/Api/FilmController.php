@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use App\Models\Film;
 
@@ -9,9 +8,11 @@ class FilmController extends Controller
 {
     public function index()
     {
-        // Trae todas las películas con sus actores
-        $films = Film::with('actors')->get();
+        return Film::with('actors')->get();
+    }
 
-        return response()->json($films);
+    public function show($id)
+    {
+        return Film::with('actors')->findOrFail($id);
     }
 }
