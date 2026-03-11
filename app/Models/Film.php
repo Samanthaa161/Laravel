@@ -2,24 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Film extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'year',
         'genre',
         'country',
         'duration',
-        'image'
+        'img_url'
     ];
 
     public function actors()
     {
         return $this->belongsToMany(
             Actor::class,
-            'films_actors', 
+            'films_actors',
             'film_id',
             'actor_id'
         )->withTimestamps();
