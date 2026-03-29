@@ -14,6 +14,22 @@ class ActorController extends Controller
         return view('actors.list', compact('actors'));
     }
 
+    // List actors born in a specific decade
+    // For example, if $year is 1980, it will list actors born 
+    //between 1980-01-01 and 1989-12-31
+    //este paso esta hehco con JavaScript, 
+    // pero lo dejo aqui para que se vea como se haria con PHP
+    // en el caso de que se quiera hacer con PHP, se podria hacer
+    // una consulta a la base de datos para obtener los actores que 
+    //nacieron en esa decada y luego se podria mostrar esa lista 
+    //de actores en una vista
+    // ejemplo de consulta a la base de datos para obtener los actores
+    // que nacieron en la decada de 1980
+    // $actors = Actor::whereBetween('birthdate', [
+    //     '1980-01-01',    
+    //     '1989-12-31'
+    // ])->get();
+
     public function listActorsByDecade($year)
     {
         $actors = Actor::whereBetween('birthdate', [
@@ -23,6 +39,7 @@ class ActorController extends Controller
 
         return view('actors.list', compact('actors'));
     }
+    
 
     public function countActors()
     {
