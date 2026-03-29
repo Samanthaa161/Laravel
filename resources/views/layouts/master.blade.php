@@ -16,21 +16,21 @@
 <body>
 
 <!-- HEADER -->
-<header class="bg-dark text-white p-3">
+<header class="bg-primary text-white p-3">
     <div class="container d-flex justify-content-between align-items-center">
         <h1 class="mb-0">Films App</h1>
 
         <nav>
             <a href="/" class="text-white mr-3">Welcome</a>
-            <a href="{{ route('films.count') }}" class="text-white mr-3">Count</a>
-            <a href="{{ route('films.list') }}" class="text-white">List</a>
+            <a href="{{ route('countFilms') }}" class="text-white mr-3">Count</a>
+            <a href="{{ route('films') }}" class="text-white">List</a>
         </nav>
     </div>
 </header>
 
 <!-- HERO IMAGE -->
 <div class="hero">
-    <img src="{{ asset('img/PORTADA.jpeg') }}" alt="Films banner">
+    <img src="{{ asset('img/FILM.jpg') }}" alt="Films banner">
 </div>
 
 <!-- MAIN CONTENT -->

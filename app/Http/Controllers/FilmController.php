@@ -82,7 +82,8 @@ class FilmController extends Controller
 
         session()->put('films', $films);
 
-        return redirect()->route('films.list');
+        return redirect()->route('films') 
+            ->with('success', 'Film added successfully');
     }
 
     private function isFilm(string $title, array $films): bool
@@ -111,7 +112,7 @@ class FilmController extends Controller
         $films = $this->films;
         usort($films, fn($a, $b) => $a['year'] <=> $b['year']);
 
-        return view('films.list', compact('films'));
+        return view('oldFilms', compact('films'));
     }
 
     public function newFilms()
@@ -119,7 +120,7 @@ class FilmController extends Controller
         $films = $this->films;
         usort($films, fn($a, $b) => $b['year'] <=> $a['year']);
 
-        return view('films.list', compact('films'));
+        return view('newFilms', compact('films'));
     }
 
     public function countFilms()

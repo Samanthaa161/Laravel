@@ -6,10 +6,10 @@
 
         <!-- Botones para ordenar -->
         <div class="d-flex mb-3">
-            <a href="{{ route('films.old') }}" class="btn btn-outline-primary mr-2">
+            <a href="{{ route('oldFilms') }}" class="btn btn-outline-primary mr-2">
                 Oldest first
             </a>
-            <a href="{{ route('films.new') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('newFilms') }}" class="btn btn-outline-secondary">
                 Newest first
             </a>
         </div>
