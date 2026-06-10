@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Producer;
 
 class Film extends Model
 {
@@ -26,5 +27,10 @@ class Film extends Model
             'film_id',
             'actor_id'
         )->withTimestamps();
+    }
+
+    public function producer()
+    {
+        return $this->belongsTo(Producer::class);
     }
 }
