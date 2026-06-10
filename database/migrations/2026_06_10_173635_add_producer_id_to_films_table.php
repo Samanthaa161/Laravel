@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('films', function (Blueprint $table) {
-            //
+            $table->foreignId('producer_id')
+              ->nullable()
+              ->constrained('producers')
+              ->nullOnDelete();
         });
     }
 
@@ -22,7 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('films', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('films', 'producer_id')) {
+                $table->dropForeign(['producer_id']);
+                $table->dropColumn('producer_id');
+            }
         });
     }
 };
